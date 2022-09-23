@@ -40,19 +40,20 @@ class ChatViewModel3 : ViewModel() {
         combine(isLoggedIn3, chatMessages3, users3) {
                 isLoggedIn,
                 listChatMessages,
-                listUsers ->
+                listUser ->
 
             println("combine executed: \n" +
                     "  isLoggedIn3: $isLoggedIn, \n" +
-                    "  users3: [${listUsers.users?.joinToString { it.name }}]\n" +
-                    "  chatMessages3: [${listChatMessages.chatMessages?.joinToString { 
+                    "  users3: [${listUser.users?.joinToString { it.name }}]\n" +
+                    "  chatMessages3: \n" +
+                    "  [ ${listChatMessages.chatMessages?.joinToString { 
                         it.fromUser.name +" -> "+it.message + "\n  " 
                     }}]"
             )
 
             if (isLoggedIn) {
                 ChatState(
-                    userPreviews = listUsers.users?.map { curUser ->
+                    userPreviews = listUser.users?.map { curUser ->
 
                         // Create the preview for the curUser
                         UserPreview(
@@ -75,7 +76,7 @@ class ChatViewModel3 : ViewModel() {
                                 ?.time
                         )
                     } ?: emptyList(),
-                    headerTitle = ("Last chat user: " + (listUsers.users?.lastOrNull()?.name ?: "No user")),
+                    headerTitle = ("Last chat user: " + (listUser.users?.lastOrNull()?.name ?: "No user")),
                 )
             } else
                 null
@@ -88,8 +89,8 @@ class ChatViewModel3 : ViewModel() {
             listUsers ->
 
         println("chatUsers3 executed:\n" +
-                "  isLoggedIn: $isLoggedIn\n" +
-                "  users: [${listUsers.users?.joinToString { 
+                "  isLoggedIn3: $isLoggedIn\n" +
+                "  users3: [${listUsers.users?.joinToString { 
                     it.name 
                 }}]")
 
@@ -102,12 +103,13 @@ class ChatViewModel3 : ViewModel() {
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), null)
 
 
+    // Using regular List<User>, does NOTHING DIFFERENT than the above
     val chatUsers = combine(isLoggedIn3, _users) {
             isLoggedIn,
             users ->
 
         println("chatUsers executed:\n" +
-                "  isLoggedIn: $isLoggedIn\n" +
+                "  isLoggedIn3: $isLoggedIn\n" +
                 "  users: [${users?.joinToString {
                     it.name
                 }}]")
@@ -148,10 +150,10 @@ class ChatViewModel3 : ViewModel() {
 
 data class ListUser(
     val users: List<User>? = null,
-    //private val id: UUID = UUID.randomUUID(), //added unique id to force updating
+    //private val id: UUID = UUID.randomUUID(), //added unique id to force updating (NOT NEEDED!)
 )
 
 data class ListChatMessage(
     val chatMessages: List<ChatMessage>? = null,
-    //private val id: UUID = UUID.randomUUID(), //added unique id to force updating
+    //private val id: UUID = UUID.randomUUID(), //added unique id to force updating (NOT NEEDED!)
 )

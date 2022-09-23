@@ -319,7 +319,7 @@ class MainActivity : AppCompatActivity() {
 
         //////////////////////////////////////////////////////////////////////////
         //// ChatViewModel3 - Combine multiple StateFlows into a single StateFlow
-        ////   but force the state to be updated using wrappers with UUID's
+        ////   but force the state to be updated using wrappers with UUID's (NOT NEEDED!!!)
 
         if (true) {
             println("\n\nCHAT VIEWMODEL3\n\n")
@@ -328,12 +328,12 @@ class MainActivity : AppCompatActivity() {
                 chatViewModel3.chatState3.collect { chatState ->
                     println(
                         "chatState3 collected: \n" +
-                                "  header=${chatState?.headerTitle}\n" +
-                                "  users latest message:\n  ${
+                                "  headerTitle=${chatState?.headerTitle}\n" +
+                                "  users3 latest message:\n  [ ${
                                     chatState?.userPreviews?.joinToString { preview ->
                                         preview.user.name + " >>> " + preview.lastMessage.toString() + "\n  "
                                     }
-                                }"
+                                }]"
                     )
                 }
             }
@@ -358,22 +358,21 @@ class MainActivity : AppCompatActivity() {
 //                            "  ListUser: $it")
 //                }
 //            }
-//
-//            lifecycleScope.launch {
-//                chatViewModel3.users.collect {
-//                    println("users3 MA (List<User>): \n" +
-//                            "  List<User>: $it")
-//                }
-//            }
+
+            lifecycleScope.launch {
+                chatViewModel3.users.collect {
+                    println("users MA (List<User>): \n" +
+                            "  List<User>: $it")
+                }
+            }
 
             val user1 = User("John1", "john doe", "https://www.avatar.com/johndoe")
             val user2 = User("Sally1", "Sassy Sally", "https://www.avatar.com/sassysally")
             val user3 = User("local", "Chris Athanas", "https://www.avatar.com/chrisathanas")
             val user4 = User("jimbo", "Jimbo Jangles", "https://www.avatar.com/jimbojangles")
 
-            // Add users/messages without lifecycleScope
+            // Add users/messages without lifecycleScope or Coroutines
             if (true) {
-                chatViewModel3.onLogin()
 
                 chatViewModel3.onUserJoined(
                     user1
@@ -394,8 +393,11 @@ class MainActivity : AppCompatActivity() {
                 chatViewModel3.onUserMessageReceived(
                     ChatMessage(user2, "user2 - Message 1")
                 )
+
+                chatViewModel3.onLogin()
             }
 
+            // Add users/messages with lifecycleScope and Coroutines
             if (false) {
                 lifecycleScope.launch {
                     delay(100)
