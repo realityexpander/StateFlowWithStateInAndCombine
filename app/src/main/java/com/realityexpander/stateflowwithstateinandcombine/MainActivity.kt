@@ -377,22 +377,26 @@ class MainActivity : AppCompatActivity() {
                 chatViewModel3.onUserJoined(
                     user1
                 )
-                chatViewModel3.onUserJoined(
-                    user2
-                )
-                chatViewModel3.onUserJoined(
-                    user3
-                )
-
                 chatViewModel3.onUserMessageReceived(
                     ChatMessage(user1, "user1 - Message 1")
                 )
-                chatViewModel3.onUserMessageReceived(
-                    ChatMessage(user1, "user1 - Message 2")
+                chatViewModel3.onUserJoined(
+                    user2
                 )
                 chatViewModel3.onUserMessageReceived(
                     ChatMessage(user2, "user2 - Message 1")
                 )
+
+                chatViewModel3.onUserMessageReceived(
+                    ChatMessage(user1, "user1 - Message 2")
+                )
+                chatViewModel3.onUserJoined(
+                    user3
+                )
+                chatViewModel3.onUserMessageReceived(
+                    ChatMessage(user3, "user3 - Message 1")
+                )
+
 
                 chatViewModel3.onLogin()
             }
