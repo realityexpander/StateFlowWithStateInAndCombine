@@ -14,7 +14,7 @@ class UserViewModel: ViewModel() {
 
 
     // Automatic updating of localUser2
-    //  - Using stateIn to get the latest value of the flow
+    //  - Using `.stateIn` to get the latest value of the flow from `users`
     val users2 = _users.asStateFlow()
     val localUser2 = users2.map { users ->
         users.find { user ->
