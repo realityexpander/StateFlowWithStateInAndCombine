@@ -366,6 +366,15 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            lifecycleScope.launch {
+                chatViewModel3.chatMessages3.collect {
+                    println("chatMessages3 MA (ListChatMessage): \n" +
+                            "  ListChatMessage:\n  [ ${it.chatMessages?.joinToString { chatMessage -> 
+                                chatMessage.fromUser.name +"->"+ chatMessage.message + "\n  "}
+                            } ]")
+                }
+            }
+
             val user1 = User("John1", "john doe", "https://www.avatar.com/johndoe")
             val user2 = User("Sally1", "Sassy Sally", "https://www.avatar.com/sassysally")
             val user3 = User("local", "Chris Athanas", "https://www.avatar.com/chrisathanas")
@@ -396,7 +405,6 @@ class MainActivity : AppCompatActivity() {
                 chatViewModel3.onUserMessageReceived(
                     ChatMessage(user3, "user3 - Message 1")
                 )
-
 
                 chatViewModel3.onLogin()
             }

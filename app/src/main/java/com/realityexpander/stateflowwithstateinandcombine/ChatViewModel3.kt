@@ -29,7 +29,7 @@ class ChatViewModel3 : ViewModel() {
             ListChatMessage(listOf())
         }
         _isLoggedIn3.update {
-            false
+            true
         }
     }
 
