@@ -48,7 +48,7 @@ class ChatViewModel3 : ViewModel() {
                     "  chatMessages3: \n" +
                     "  [ ${listChatMessages.chatMessages?.joinToString { 
                         it.fromUser.name +" -> "+it.message + "\n  " 
-                    }}]"
+                    }} ]"
             )
 
             if (isLoggedIn) {

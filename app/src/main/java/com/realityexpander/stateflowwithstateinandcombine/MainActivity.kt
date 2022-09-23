@@ -333,7 +333,7 @@ class MainActivity : AppCompatActivity() {
                                     chatState?.userPreviews?.joinToString { preview ->
                                         preview.user.name + " >>> " + preview.lastMessage.toString() + "\n  "
                                     }
-                                }]"
+                                } ]"
                     )
                 }
             }
