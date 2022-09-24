@@ -17,13 +17,14 @@ class ChatViewModel : ViewModel() {
     val users = _users.asStateFlow()
 
 
-        val chatState =
+    val chatState =
         combine(isLoggedIn, chatMessages, users) { isLoggedIn, chatMessages, users ->
-            println("combine executed: \n" +
-                    "  isLoggedIn: $isLoggedIn, \n" +
-                    "  users: ${users.joinToString { it.name }}\n" +
-                    "  chatMessages: ${chatMessages.joinToString { it.fromUser.name +" -> "+it.message + "\n  " }}"
-                    )
+            println(
+                "combine executed: \n" +
+                        "  isLoggedIn: $isLoggedIn, \n" +
+                        "  users: ${users.joinToString { it.name }}\n" +
+                        "  chatMessages: ${chatMessages.joinToString { it.fromUser.name + " -> " + it.message + "\n  " }}"
+            )
 
             if (isLoggedIn) {
                 ChatState(
@@ -86,6 +87,7 @@ class ChatViewModel : ViewModel() {
         _isLoggedIn.update { true }
 
     }
+
     fun onLogout() {
         _isLoggedIn.update { false }
     }
